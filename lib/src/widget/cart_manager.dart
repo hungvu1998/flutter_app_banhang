@@ -10,9 +10,6 @@ class CartManager extends StatefulWidget {
 }
 
 class _CartManager extends State<CartManager> {
-
-  CartBloc _cartBloc = new CartBloc();
-
   @override
   Widget build(BuildContext context) {
 
@@ -21,7 +18,7 @@ class _CartManager extends State<CartManager> {
     return new Container(height: MediaQuery.of(context).size.height, child:
     new Stack(children: <Widget>[
       new Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-        new StreamBuilder(initialData: _cartBloc.currentCart, stream: _cartBloc.observableCart, builder: (context, AsyncSnapshot<Cart> snapshot){
+        new StreamBuilder(initialData: cartBloc.currentCart, stream: cartBloc.observableCart, builder: (context, AsyncSnapshot<Cart> snapshot){
           return
             new Container(margin: EdgeInsets.symmetric(horizontal: 20), height: _gridSize, width: double.infinity, child:
             new Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
@@ -34,7 +31,7 @@ class _CartManager extends State<CartManager> {
                   background: Container(color: Colors.transparent),
                   key: Key(snapshot.data.orders[index].id.toString()),
                   onDismissed: (_) {
-                    _cartBloc.removerOrderOfCart(snapshot.data.orders[index]);
+                    cartBloc.removerOrderOfCart(snapshot.data.orders[index]);
                   },
                   child: new Padding(padding: EdgeInsets.symmetric(vertical: 10), child: new OrderWidget(snapshot.data.orders[index], _gridSize)),
                 );
@@ -54,7 +51,7 @@ class _CartManager extends State<CartManager> {
       new Container(padding: EdgeInsets.only(left: 10, bottom: _gridSize*0.02), width: MediaQuery.of(context).size.width - 80, child:
       new RaisedButton(color: Colors.amber, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)), padding: EdgeInsets.all(20),
           onPressed: (){
-            if(_cartBloc.currentCart.isEmpty)
+            if(cartBloc.currentCart.isEmpty)
               Scaffold.of(context).showSnackBar(SnackBar(content: Text("Cart is empty")));
           },
           child: new Text("Next", style: TextStyle(fontWeight: FontWeight.bold))

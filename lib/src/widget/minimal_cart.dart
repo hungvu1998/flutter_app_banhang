@@ -7,13 +7,13 @@ class MinimalCart extends StatelessWidget {
 
   final double _gridSize;
   final List<Widget> _listWidget = new List();
-  final CartBloc _cartBloc = new CartBloc();
+
   static final ScrollController _scrollController =  new ScrollController();
   MinimalCart(this._gridSize);
 
   @override
   Widget build(BuildContext context) {
-    return new StreamBuilder(initialData: _cartBloc.currentCart, stream: _cartBloc.observableCart, builder: (context, AsyncSnapshot<Cart> snapshot) {
+    return new StreamBuilder(initialData: cartBloc.currentCart, stream: cartBloc.observableCart, builder: (context, AsyncSnapshot<Cart> snapshot) {
       _fillList(snapshot.data, context);
       var content =
       new Container(margin: EdgeInsets.only(left: 10, right: 80), width: double.infinity, height: MediaQuery.of(context).size.height - _gridSize, child:

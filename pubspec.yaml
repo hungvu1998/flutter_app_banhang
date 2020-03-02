@@ -24,6 +24,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   rxdart: ^0.21.0
+  cloud_firestore: ^0.13.2+1
+  font_awesome_flutter: ^8.5.0
+  google_fonts: ^0.3.5
+  firebase_auth: ^0.15.5+2
+  flutter_auth_buttons: ^0.6.0
+  flutter_facebook_login: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +51,14 @@ flutter:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/spelt_fusilli.png
+    - assets/images/spelt_italian.png
+    - assets/images/spelt_noodles.png
+    - assets/images/spelt_penne.png
+    - assets/images/spelt_spaghetti.png
+    - assets/images/spelt_tagliatelle.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

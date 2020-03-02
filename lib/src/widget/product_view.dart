@@ -14,8 +14,6 @@ class ProductView extends StatefulWidget{
 }
 
 class _ProductView extends State<ProductView> {
-
-  final CartBloc _cartBloc = new CartBloc();
   int _quantity = 1;
 
   void _increment(){
@@ -41,7 +39,7 @@ class _ProductView extends State<ProductView> {
       new SingleChildScrollView(child:
       new Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
         new Center(child:
-        new StreamBuilder(initialData: null, stream: _cartBloc.observableLastOrder, builder: (context, AsyncSnapshot<Order> snapshot){
+        new StreamBuilder(initialData: null, stream: cartBloc.observableLastOrder, builder: (context, AsyncSnapshot<Order> snapshot){
           String tag = snapshot.data == null ? "tagHero${widget.product.id}" : "tagHeroOrder${snapshot.data.id}";
           return new Hero(tag: tag, child:
           new Image.asset(widget.product.urlToImage, fit: BoxFit.cover, height: MediaQuery.of(context).size.height*0.4)
@@ -97,7 +95,7 @@ class _ProductView extends State<ProductView> {
         new SizedBox(width: MediaQuery.of(context).size.width * 0.6, child:
         new RaisedButton(color: Colors.amber, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)), padding: EdgeInsets.all(20),
             onPressed: (){
-              _cartBloc.addOrderToCart(widget.product, _quantity);
+              cartBloc.addOrderToCart(widget.product, _quantity);
               Navigator.of(context).pop();
             },
             child: new Text("Add to cart", style: TextStyle(fontWeight: FontWeight.bold))

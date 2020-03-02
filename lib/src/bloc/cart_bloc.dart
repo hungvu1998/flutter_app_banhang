@@ -3,6 +3,8 @@ import 'package:flutter_app_banhang/src/data/order.dart';
 import 'package:flutter_app_banhang/src/data/product.dart';
 import 'package:rxdart/rxdart.dart';
 
+
+final cartBloc = new CartBloc();
 class CartBloc{
 
   static int _orderId = 0;
