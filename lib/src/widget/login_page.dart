@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_banhang/src/bloc/auth_bloc.dart';
 import 'package:flutter_app_banhang/src/widget/home_page.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,11 +13,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-   FacebookLogin fblogin;
+
   @override
   void initState() {
-    fblogin = new FacebookLogin();
-    signOut();
+    authBloc.checkLogin().then((value){
+      if(value){
+//        Navigator.of(context).pushReplacement( MaterialPageRoute(
+//          builder: (context) {
+//            return MyHomePage();
+//          },));
+      authBloc.logout();
+      }
+    });
     super.initState();
   }
 
@@ -188,36 +196,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-   Future<void> signOut() async {
-     //await googleSignIn.signOut();
-     await fblogin.logOut();
-     await FirebaseAuth.instance.signOut();
 
-   }
 
   Widget _facebookButton() {
     return InkWell(
       onTap: (){
-        fblogin.logIn(['email','public_profile'])
-            .then((result){
-              switch(result.status){
-                case FacebookLoginStatus.loggedIn:
-                  FirebaseAuth.instance.signInWithCredential(FacebookAuthProvider.getCredential(accessToken: result.accessToken.token))
-                  .then((signInUser){
-                    print('sign in as ${signInUser.user.displayName}');
-                  }).catchError((error){
-                    print('${error}');
-                  });
-                  
-                  break;
-                case FacebookLoginStatus.cancelledByUser:
-                  // TODO: Handle this case.
-                  break;
-                case FacebookLoginStatus.error:
-                  // TODO: Handle this case.
-                  break;
-              }
-        });
+        authBloc.signInWithFacebook(context);
       },
       child: Container(
         height: 50,
